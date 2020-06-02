@@ -10,4 +10,12 @@ def insert():
         query = f.read()
     client.query(query)
 
-insert()
+def select():
+    with open('sql/fruits_select1.sql') as f:
+        query = f.read()
+    rows = client.query(query)
+    # rowsはdictionaryみたいなものだが、keysなどの関数が使えないためpandasに変換するのが妥当か。
+    print(rows.to_dataframe().T.to_json())
+
+#insert()
+select()
