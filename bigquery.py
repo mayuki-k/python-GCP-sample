@@ -17,5 +17,23 @@ def select():
     # rowsはdictionaryみたいなものだが、keysなどの関数が使えないためpandasに変換するのが妥当か。
     print(rows.to_dataframe().T.to_json())
 
+def load(dataset:str, table:str):
+    """localのファイルからデータをロード
+
+    Arguments:
+        dataset {str} -- データセット名
+        table {str} -- テーブル名
+    """    
+    filename = 'data.csv'
+    dataset_ref = client.dataset(dataset)
+    table_ref = dataset_ref.table(table)
+    job_config = bigquery.LoadJobConfig()
+    job_config.source_format = bigquery.SourceFormat.CSV
+    job_config.skip_leading_rows = 1
+    with open(filename, "rb") as f:
+        job = client.load_table_from_file(f, table_ref, job_config=job_config)
+
+
 #insert()
-select()
+#select()
+load('item_data', 'fruits')
