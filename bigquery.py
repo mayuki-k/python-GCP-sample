@@ -21,10 +21,10 @@ def select():
     with open('sql/fruits_select1.sql') as f:
         query = f.read()
     rows = client.query(query)
-    print(rows.state) # -> RUNNING stateはstr型
+    get_jobs_info()
     # rowsはdictionaryみたいなものだが、keysなどの関数が使えないためpandasに変換するのが妥当か。
     print(rows.to_dataframe().T.to_json())
-    print(rows.state) # -> DONE
+    get_jobs_info()
 
 def create(table_name):
     table_id = const.get_table_id(table_name)
@@ -67,4 +67,16 @@ def get_table_info(table_name):
     print(f'table = {table.table_id}')
     print(f'table = {table.expire}')
 
-create('delete_users')
+def get_jobs_info():
+    for job in client.list_jobs(max_results=10):
+        print('----------')
+        print(f'job_id = {job.job_id}')
+        print(f'job_type = {job.job_type}')
+        print(f'job_state = {job.state}')
+        print(f'job table def = {job.table_definitions}')
+        print(f'job ref = {job.referenced_tables}')
+        print(f'job query = {job.query}')
+        print('----------')
+    
+
+select()
