@@ -1,4 +1,5 @@
 # TODO:SQLのテーブルとかデータセットの名前消したほうがいいかも？(Jinja2とか使う？)
+# TODO:table viewについての調査
 # とりあえずコードベースでは残さないようにする
 
 from google.cloud import bigquery
@@ -51,3 +52,12 @@ def load(dataset:str, table:str):
     with open(filename, "rb") as f:
         job = client.load_table_from_file(f, table_ref, job_config=job_config)
 
+def get_table_info(table_name):
+    table_id = const.get_table_id(table_name)
+    table = client.get_table(table_id)
+    print(f'schema = {table.schema}')
+    print(f'project_id = {table.project}')
+    print(f'dataset_name = {table.dataset_id}')
+    print(f'table = {table.table_id}')
+
+get_table_info('fruits')
