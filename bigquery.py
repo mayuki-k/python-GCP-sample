@@ -4,6 +4,7 @@
 
 from google.cloud import bigquery
 from google.oauth2.service_account import Credentials
+from datetime import datetime, timedelta
 # 定数ファイル。作成が必要
 from env import const
 
@@ -32,7 +33,12 @@ def create(table_name):
         bigquery.SchemaField('name', 'STRING', mode='REQUIRED'),
         bigquery.SchemaField('age', 'INTEGER', mode='REQUIRED')
     ]
+    delta = timedelta(days=1)
+    # 期限の追加
+    expire_day = datetime.now() + delta
+    print(expire_day)
     table = bigquery.Table(table_id, schema=schema)
+    table.expires = expire_day
     client.create_table(table)
 
 
@@ -59,5 +65,6 @@ def get_table_info(table_name):
     print(f'project_id = {table.project}')
     print(f'dataset_name = {table.dataset_id}')
     print(f'table = {table.table_id}')
+    print(f'table = {table.expire}')
 
-get_table_info('fruits')
+create('delete_users')
