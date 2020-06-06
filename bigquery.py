@@ -1,3 +1,6 @@
+# TODO:SQLのテーブルとかデータセットの名前消したほうがいいかも？(Jinja2とか使う？)
+# とりあえずコードベースでは残さないようにする
+
 from google.cloud import bigquery
 from google.oauth2.service_account import Credentials
 
