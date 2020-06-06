@@ -51,8 +51,3 @@ def load(dataset:str, table:str):
     with open(filename, "rb") as f:
         job = client.load_table_from_file(f, table_ref, job_config=job_config)
 
-
-#insert()
-#select()
-#load('item_data', 'fruits')
-create()
