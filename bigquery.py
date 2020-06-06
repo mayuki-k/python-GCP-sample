@@ -24,8 +24,8 @@ def select():
     print(rows.to_dataframe().T.to_json())
     print(rows.state) # -> DONE
 
-def create():
-    table_id = const.TABLE_ID2
+def create(table_name):
+    table_id = const.get_table_id(table_name)
     schema = [
         bigquery.SchemaField('id', 'INTEGER', mode='REQUIRED'),
         bigquery.SchemaField('name', 'STRING', mode='REQUIRED'),
