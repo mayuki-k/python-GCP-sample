@@ -3,7 +3,8 @@
 
 from google.cloud import bigquery
 from google.oauth2.service_account import Credentials
-
+# 定数ファイル。作成が必要
+from env import const
 
 credentials = Credentials.from_service_account_file('env/auth.json')
 client = bigquery.Client(credentials=credentials, project=credentials.project_id)
@@ -23,6 +24,17 @@ def select():
     print(rows.to_dataframe().T.to_json())
     print(rows.state) # -> DONE
 
+def create():
+    table_id = const.TABLE_ID2
+    schema = [
+        bigquery.SchemaField('id', 'INTEGER', mode='REQUIRED'),
+        bigquery.SchemaField('name', 'STRING', mode='REQUIRED'),
+        bigquery.SchemaField('age', 'INTEGER', mode='REQUIRED')
+    ]
+    table = bigquery.Table(table_id, schema=schema)
+    client.create_table(table)
+
+
 def load(dataset:str, table:str):
     """localのファイルからデータをロード
 
@@ -41,5 +53,6 @@ def load(dataset:str, table:str):
 
 
 #insert()
-select()
+#select()
 #load('item_data', 'fruits')
+create()
