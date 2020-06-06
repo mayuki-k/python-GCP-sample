@@ -10,12 +10,15 @@ def insert():
         query = f.read()
     client.query(query)
 
+
 def select():
     with open('sql/fruits_select1.sql') as f:
         query = f.read()
     rows = client.query(query)
+    print(rows.state) # -> RUNNING stateはstr型
     # rowsはdictionaryみたいなものだが、keysなどの関数が使えないためpandasに変換するのが妥当か。
     print(rows.to_dataframe().T.to_json())
+    print(rows.state) # -> DONE
 
 def load(dataset:str, table:str):
     """localのファイルからデータをロード
@@ -35,5 +38,5 @@ def load(dataset:str, table:str):
 
 
 #insert()
-#select()
-load('item_data', 'fruits')
+select()
+#load('item_data', 'fruits')
