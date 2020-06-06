@@ -68,7 +68,7 @@ def get_table_info(table_name):
     print(f'table = {table.expire}')
 
 def get_jobs_info():
-    for job in client.list_jobs(max_results=10):
+    for job in client.list_jobs(max_results=3):
         print('----------')
         print(f'job_id = {job.job_id}')
         print(f'job_type = {job.job_type}')
@@ -76,7 +76,8 @@ def get_jobs_info():
         print(f'job table def = {job.table_definitions}')
         print(f'job ref = {job.referenced_tables}')
         print(f'job query = {job.query}')
+        # for CREATE/DROP TABLE/VIEW queries.かよ！
+        print(f'job target = {job.ddl_target_table}')
+        # INSERTはテーブル情報取得できるなあ。SELECTは変なの出る(キャッシュか？)
+        print(f'job destination = {job.destination}')
         print('----------')
-    
-
-select()
