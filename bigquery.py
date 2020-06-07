@@ -58,6 +58,12 @@ def load(dataset:str, table:str):
     with open(filename, "rb") as f:
         job = client.load_table_from_file(f, table_ref, job_config=job_config)
 
+def copy(source_table_name, destination_table_name):
+    source_table_id = const.get_table_id(source_table_name)
+    destination_table_id = const.get_table_id(destination_table_name)
+    job = client.copy_table(source_table_id, destination_table_id)
+    job.result()
+
 def get_table_info(table_name):
     table_id = const.get_table_id(table_name)
     table = client.get_table(table_id)
@@ -81,3 +87,5 @@ def get_jobs_info():
         # INSERTはテーブル情報取得できるなあ。SELECTは変なの出る(キャッシュか？)
         print(f'job destination = {job.destination}')
         print('----------')
+
+copy('fruits', 'temp_fruits')
