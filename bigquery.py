@@ -87,5 +87,4 @@ def get_jobs_info():
         # INSERTはテーブル情報取得できるなあ。SELECTは変なの出る(キャッシュか？)
         print(f'job destination = {job.destination}')
         print('----------')
-
-copy('fruits', 'temp_fruits')
+        

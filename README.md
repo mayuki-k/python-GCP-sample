@@ -18,3 +18,12 @@ CREATE TABLE item_data.fruits(
   price int64
 )
 ```
+
+# clouddatastore.py
+
+Cloud DataStore
+
+- 最初作るときにFireStoreモードとDataStoreモードの2つがあり、DataStoreモードを選択
+- エンティティを作成する
+- 名前空間、種類を指定
+- プロパティを適当に指定
