@@ -17,3 +17,10 @@ def get_datas(kind, id):
     key = client.key(kind, id)
     datas = client.get(key)
     print(datas)
+
+def get_multi(kind, ids):
+    keys = []
+    for id in ids:
+        keys.append(client.key(kind, id))
+    datas = client.get_multi(keys)
+    print(datas)
