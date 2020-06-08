@@ -24,3 +24,15 @@ def get_multi(kind, ids):
         keys.append(client.key(kind, id))
     datas = client.get_multi(keys)
     print(datas)
+
+def delete(kind, id):
+    key = client.key(kind, id)
+    client.delete(key)
+
+def delete_multi(kind, ids):
+    keys = []
+    for id in ids:
+        keys.append(client.key(kind, id))
+    datas = client.delete_multi(keys)
+
+delete_multi('item', ['ddd', 'mmm', 'sss'])
