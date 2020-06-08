@@ -12,3 +12,8 @@ def save(kind, id, datas):
     for key in datas.keys():
         put_datas[key] = datas[key]
     client.put(put_datas)
+
+def get_datas(kind, id):
+    key = client.key(kind, id)
+    datas = client.get(key)
+    print(datas)
