@@ -13,6 +13,22 @@ def save(kind, id, datas):
         put_datas[key] = datas[key]
     client.put(put_datas)
 
+# 名前entityとかの方がいいか？
+def save_multi(kind, ids, datas_list):
+    keys = []
+    put_datas_list = []
+    for id in ids:
+        keys.append(client.key(kind, id))
+    for i in range(len(keys)):
+        datas = datas_list[i]
+        put_datas = datastore.Entity(key=keys[i])
+        data_keys = datas.keys()
+        for data_key in data_keys:
+            put_datas[data_key] = datas[data_key]
+        put_datas_list.append(put_datas)
+    client.put_multi(put_datas_list)
+    
+
 def get_datas(kind, id):
     key = client.key(kind, id)
     datas = client.get(key)
@@ -34,5 +50,3 @@ def delete_multi(kind, ids):
     for id in ids:
         keys.append(client.key(kind, id))
     datas = client.delete_multi(keys)
-
-delete_multi('item', ['ddd', 'mmm', 'sss'])
